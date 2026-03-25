@@ -13,14 +13,14 @@ import CarouselTop from '../components/CarouselTop';
 function HomePage() {
  
 const productImages = [
-  '/public/HomePageImages/GraphicDesing1.jpg',
-  '/public/HomePageImages/GraphicDesing2.jpg',
-  '/public/HomePageImages/GraphicDesing3.jpg',
-  '/public/HomePageImages/GraphicDesing4.jpg',
-  '/public/HomePageImages/GraphicDesing5.jpg',
-  '/public/HomePageImages/GraphicDesing6.jpg',
-  '/public/HomePageImages/GraphicDesing7.jpg',
-  '/public/HomePageImages/GraphicDesing8.jpg',
+  '/HomePageImages/GraphicDesing1.jpg',
+  '/HomePageImages/GraphicDesing2.jpg',
+  '/HomePageImages/GraphicDesing3.jpg',
+  '/HomePageImages/GraphicDesing4.jpg',
+  '/HomePageImages/GraphicDesing5.jpg',
+  '/HomePageImages/GraphicDesing6.jpg',
+  '/HomePageImages/GraphicDesing7.jpg',
+  '/HomePageImages/GraphicDesing8.jpg',
 ];
 
 
@@ -46,14 +46,14 @@ const productImages = [
   {/* Men */}
   <CategoryCard 
     name="MEN" 
-    image="public/HomePageImages/MenSegment.jpg" 
+    image="/HomePageImages/MenSegment.jpg" 
     className="md:col-span-2 md:row-span-2 h-[500px] md:h-full"
   />
 
   {/* Women */}
   <CategoryCard 
     name="WOMEN" 
-    image="public/HomePageImages/WomenSegment.jpg" 
+    image="/HomePageImages/WomenSegment.jpg" 
     className="md:col-span-1 md:row-span-2 h-[500px] md:h-full"
   />
 
@@ -63,14 +63,14 @@ const productImages = [
     {/* Accessories */}
     <CategoryCard 
       name="ACCESSORIES" 
-      image="public/HomePageImages/AccessoriesSegment.jpg" 
+      image="/HomePageImages/AccessoriesSegment.jpg" 
       className="h-full" 
     />
 
     {/* Kids */}
     <CategoryCard 
       name="KIDS" 
-      image="public/HomePageImages/KidsSegment.jpg" 
+      image="/HomePageImages/KidsSegment.jpg" 
       className="h-full"
     />
     

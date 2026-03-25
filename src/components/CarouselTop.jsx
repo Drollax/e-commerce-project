@@ -1,15 +1,15 @@
  import { ChevronLeft, ChevronRight} from 'lucide-react';
  import { Carousel } from 'react-bootstrap';
- 
+
  const CarouselTop =() =>{
      const slides = [
          {
     id: 1,
-    image: "/public/HomePageImages/Carousel1.jpg",
+    image: "/HomePageImages/Carousel1.jpg",
 },
 {
     id: 2,
-    image: "/public/HomePageImages/Carousel1.jpg",
+    image: "/HomePageImages/Carousel1.jpg",
 },
 ];
 
