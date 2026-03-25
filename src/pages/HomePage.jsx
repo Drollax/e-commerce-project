@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { ChevronLeft, ChevronRight} from 'lucide-react';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Carousel } from 'react-bootstrap';
 import CategoryCard from '../components/CategoryCard';
 import ProductCard from '../components/ProductCard';
 import ProductCarousel from '../components/ProductCarousel';
@@ -31,13 +29,13 @@ const productImages = [
         <CarouselTop/>
 </div>
 
-<section className="bg-[#FAFAFA] dark:bg-slate-950 py-12 px-4 transition-colors duration-300">
+<section className="bg-[#FAFAFA] py-12 px-4 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
         <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">EDITOR'S PICK</h2>
-          <p className="text-gray-500 dark:text-gray-400 text-sm">Problems trying to resolve the conflict between</p>
+          <h2 className="text-2xl font-bold text-slate-800">EDITOR'S PICK</h2>
+          <p className="text-gray-500  text-sm">Problems trying to resolve the conflict between</p>
         </div>
 
         {/* The Grid */}
@@ -79,18 +77,18 @@ const productImages = [
   </div>
 </div>
     </section>
-<section className="bg-white dark:bg-slate-950 py-20 px-4 transition-colors duration-300">
+<section className="bg-white  py-20 px-4 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         
         {/* Header Section of Cards */}
         <div className="text-center mb-16 space-y-3">
-          <h4 className="text-xl font-medium text-[#737373] dark:text-slate-400">
+          <h4 className="text-xl font-medium text-[#737373] ">
             Featured Products
           </h4>
-          <h2 className="text-3xl font-extrabold text-[#252B42] dark:text-white uppercase tracking-tight">
+          <h2 className="text-3xl font-extrabold text-[#252B42] uppercase tracking-tight">
             BESTSELLER PRODUCTS
           </h2>
-          <p className="max-w-md mx-auto text-sm font-medium text-[#737373] dark:text-slate-400">
+          <p className="max-w-md mx-auto text-sm font-medium text-[#737373]">
             Problems trying to resolve the conflict between
           </p>
         </div>

@@ -11,7 +11,7 @@ const CategoryCard = ({ name, image, className = "" }) => {
 
       {/* Overlay Button */}
       <div className="absolute bottom-6 left-6">
-        <button className="bg-white font-montserrat dark:bg-slate-900 px-8 py-3 font-bold text-slate-900 dark:text-white uppercase tracking-tighter hover:bg-slate-900 dark:hover:bg-white dark:hover:text-slate-900 transition-colors duration-300">
+        <button className="bg-white font-montserrat px-8 py-3 font-bold text-slate-900 uppercase tracking-tighter hover:bg-slate-900 transition-colors duration-300">
           {name}
         </button>
       </div>
