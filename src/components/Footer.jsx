@@ -25,7 +25,7 @@ const Footer = () => {
     <footer className="w-full bg-white font-montserrat">
       {/* Top Header Section */}
       <div className="bg-light-grey py-10 md:py-16">
-        <div className="max-w-[1050px] mx-auto px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="max-w-300 mx-auto px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <h2 className="font-bold text-h3 text-dark-blue">Bandage</h2>
           <div className="flex items-center gap-5">
             {/* Using primary-blue from your theme */}
@@ -37,7 +37,7 @@ const Footer = () => {
       </div>
 
       {/* Main Content Section */}
-      <div className="max-w-[1050px] mx-auto px-8 py-12 md:py-16">
+      <div className="max-w-300 mx-auto px-8 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-10 md:gap-4">
           {/* Link Columns */}
           {footerLinks.map((section, idx) => (
@@ -86,6 +86,7 @@ const Footer = () => {
             Made With Love By Finland All Right Reserved
           </p>
         </div>
+      <hr/>
       </div>
     </footer>
   );
