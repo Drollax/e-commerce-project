@@ -1,1 +1,43 @@
 @import "tailwindcss";
+
+@import "tailwindcss";
+
+@theme {
+  /* --- Colors --- */
+  /* Primary Green Palette */
+  --color-primary-green: #23856D;
+  --color-secondary-green: #2DC071;
+  --color-dark-green: #252B42;
+  
+  /* Blue Palette */
+  --color-primary-blue: #23A6F0;
+  --color-dark-blue: #252B42;
+  
+  /* Neutral Palette */
+  --color-grey-text: #737373;
+  --color-light-grey: #FAFAFA;
+  --color-muted-grey: #BDBDBD;
+
+  /* --- Typography --- */
+  --font-montserrat: "Montserrat", sans-serif;
+  
+  /* Custom Font Sizes based on the Montserrat column in your image */
+  --text-h1: 58px;
+  --text-h2: 40px;
+  --text-h3: 24px;
+  --text-h4: 20px;
+  --text-h5: 16px;
+  --text-h6: 14px;
+}
+
+/* --- Global Base Styles --- */
+@layer base {
+  h1 { @apply font-montserrat font-bold text-h1 tracking-[0.2px]; }
+  h2 { @apply font-montserrat font-bold text-h2 tracking-[0.1px]; }
+  h3 { @apply font-montserrat font-bold text-h3 tracking-[0.1px]; }
+  h4 { @apply font-montserrat font-normal text-h4 tracking-[0.2px]; }
+  h5 { @apply font-montserrat font-bold text-h5 tracking-[0.1px]; }
+  h6 { @apply font-montserrat font-bold text-h6 tracking-[0.1px]; }
+  
+  p { @apply font-montserrat font-normal text-[14px] leading-[20px]; }
+}

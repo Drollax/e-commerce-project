@@ -40,7 +40,7 @@ export default function Header() {
         <h1 className="text-2xl font-bold text-[#252B42]">Bandage</h1>
 
         {/* Desktop Links (Hidden on Mobile) */}
-        <div className="hidden lg:flex items-center gap-6 text-[#737373] mr-150 font-bold">
+        <div className="hidden lg:flex items-center gap-6 text-[#737373] mr-100 font-bold">
           <button className="hover:text-[#252B42]">Home</button>
           <button className="flex items-center gap-1 hover:text-[#252B42]">
             Shop <ChevronDown size={14} />

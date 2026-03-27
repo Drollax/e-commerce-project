@@ -34,21 +34,21 @@ return(
       }}
     >
       {/* Content Container */}
-      <div className="relative z-10 pointer-events-none w-full max-w-[1050px] mx-auto flex flex-col items-center text-center lg:items-start lg:text-left text-white px-8 gap-6">
+      <div className="relative z-10 pointer-events-none w-full max-w-[1050px] mx-auto flex flex-col items-center text-center lg:items-start lg:!text-left text-white px-8 gap-6">
         
-        <h5 className="font-montserrat font-bold text-[16px] leading-[24px] tracking-[0.1px] uppercase">
+        <h5 className="font-montserrat !font-bold !text-[16px] !leading-[24px] !tracking-[0.1px] !uppercase">
           Summer 2020
         </h5>
 
-        <h2 className="font-montserrat font-bold text-[40px] md:text-[58px] leading-[50px] md:leading-[80px] tracking-[0.2px] uppercase">
+        <h2 className="font-montserrat font-bold !text-[50px] md:!text-[58px] !leading-[50px] md:!leading-[80px] !tracking-[0.2px] !uppercase">
           NEW COLLECTION
         </h2>
 
-        <h4 className="font-montserrat font-normal text-[20px] leading-[30px] tracking-[0.2px] text-[#FAFAFA] max-w-[380px]">
+        <h4 className="font-montserrat font-normal !text-[20px] !leading-[30px] !tracking-[0.2px] !text-[#FAFAFA] !max-w-[380px]">
           We know how large objects will act, but things on a small scale.
         </h4>
 
-        <button className="pointer-events-auto bg-[#2DC071] hover:bg-[#25a05e] px-10 py-4 text-xl font-bold rounded-md transition-all active:scale-95 uppercase">
+        <button className="pointer-events-auto bg-[#2DC071] hover:bg-[#25a05e] px-10 py-4 text-xl font-bold !rounded-md transition-all active:scale-95 uppercase">
           SHOP NOW
         </button>
       </div>
