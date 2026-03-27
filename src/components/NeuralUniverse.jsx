@@ -1,9 +1,9 @@
 export default function NeuralUniverse() {
   return (
-    <div className="w-full  bg-white flex flex-col pt-50 md:flex-row items-center justify-center lg:pt-0 gap-8 lg:gap-0">
+    <div className="w-full  bg-white flex flex-col pt-50 md:flex-row items-center justify-center lg:pt-0 gap-8 lg:gap-0 lg:-translate-x-20">
 
       {/*Content */}
-      <div className="w-full lg:order-2 md:w-1/2 max-w-md text-center md:text-left">
+      <div className="w-full lg:order-2 md:w-1/2 max-w-md text-center lg:!text-left md:text-left">
         <p className="text-xs tracking-widest text-gray-400 uppercase mb-4">
           Summer 2020
         </p>
@@ -19,11 +19,11 @@ export default function NeuralUniverse() {
         {/* Buttons */}
         <div className="flex flex-col md:flex-row items-center md:items-start gap-3">
           
-          <button className="bg-blue-500 hover:bg-blue-600 md:bg-green-500 md:hover:bg-green-600 text-white px-6 py-3 rounded-md text-sm font-medium transition">
+          <button className="border border-blue-400 text-blue-500 md:border-green-500 md:text-green-600 px-6 py-3 rounded-md text-sm font-medium hover:bg-blue-50 md:hover:bg-green-500 md:hover:text-white transition">
             BUY NOW
           </button>
 
-          <button className="border border-blue-400 text-blue-500 md:border-green-500 md:text-green-600 px-6 py-3 rounded-md text-sm font-medium hover:bg-blue-50 md:hover:bg-green-50 transition">
+          <button className="border border-blue-400 text-blue-500 md:border-green-500 md:text-green-600 px-6 py-3 rounded-md text-sm font-medium hover:bg-blue-50 md:hover:bg-green-500 md:hover:text-white transition">
             Learn More
           </button>
         </div>
@@ -32,7 +32,7 @@ export default function NeuralUniverse() {
      <img
     src="/HomePageImages/BuyNow1.png"
     alt="couple"
-    className="lg:w-full lg:h-full object-contain w-[800px]"
+    className="lg:w-full lg:h-full object-contain w-200"
   />
 </div>
     </div>
