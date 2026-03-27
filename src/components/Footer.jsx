@@ -81,7 +81,7 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="bg-light-grey py-6">
-        <div className="max-w-[1050px] mx-auto px-8 text-center lg:!text-left">
+        <div className="max-w-300 mx-auto px-8 text-center lg:!text-left">
           <p className="font-bold text-h6 text-grey-text max-w-[200px] md:max-w-none mx-auto lg:mx-0">
             Made With Love By Finland All Right Reserved
           </p>

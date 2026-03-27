@@ -1,4 +1,4 @@
-import { AlarmClock, MessageSquare, ChevronRight, ChartArea } from 'lucide-react';
+import { AlarmClock, ChevronRight, ChartArea } from 'lucide-react';
 
 const posts = [
   {
@@ -91,9 +91,9 @@ export default function FeaturedPosts() {
         
         {/* Section Heading */}
         <div className="text-center mb-16 space-y-3">
-          <h6 className="text-blue-500 font-bold text-sm">Practice Advice</h6>
-          <h2 className="text-4xl font-bold text-slate-900 tracking-tight">Featured Products</h2>
-          <p className="text-slate-500 max-w-lg mx-auto text-sm">
+          <h6 className="!text-blue-500 !font-bold !text-sm">Practice Advice</h6>
+          <h2 className="!text-4xl !font-bold text-slate-900 tracking-tight">Featured Posts</h2>
+          <p className="text-slate-500 max-w-lg mx-auto !text-sm">
             Problems trying to resolve the conflict between the two major <br className="hidden md:block"/>
             realms of Classical physics: Newtonian mechanics.
           </p>

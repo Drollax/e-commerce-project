@@ -29,13 +29,13 @@ const productImages = [
         <CarouselTop/>
 </div>
 
-<section className="bg-[#FAFAFA] py-12 px-4 transition-colors duration-300">
+<section className="bg-[#FAFAFA] py-24 px-4 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
         <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-slate-800">EDITOR'S PICK</h2>
-          <p className="text-gray-500  text-sm">Problems trying to resolve the conflict between</p>
+          <h2 className="!text-4xl !font-bold text-slate-800">EDITOR'S PICK</h2>
+          <p className="text-gray-500  !text-1xl">Problems trying to resolve the conflict between</p>
         </div>
 
         {/* The Grid */}
@@ -82,19 +82,19 @@ const productImages = [
         
         {/* Header Section of Cards */}
         <div className="text-center mb-16 space-y-3">
-          <h4 className="text-xl font-medium text-[#737373] ">
+          <h4 className="!text-3xl !font-medium text-[#737373] ">
             Featured Products
           </h4>
-          <h2 className="text-3xl font-extrabold text-[#252B42] uppercase tracking-tight">
+          <h2 className="!text-4xl !font-extrabold text-[#252B42] uppercase px-40 tracking-tight">
             BESTSELLER PRODUCTS
           </h2>
-          <p className="max-w-md mx-auto text-sm font-medium text-[#737373]">
+          <p className="mx-auto !text-1xl font-medium text-[#737373]">
             Problems trying to resolve the conflict between
           </p>
         </div>
 
         {/* Responsive Grid Layout*/}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-16">
           
           {productImages.map((imagePath, index) => (
             <ProductCard key={index} image={imagePath} />
