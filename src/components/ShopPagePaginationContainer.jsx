@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from "./Pagination"
 import ProductCard from "./ProductCard"
+import FilterBar from './FilterBar';
 
 const ShopPagePaginationContainer = () => {
-  // Your 36 images (12 images x 3 pages)
   const allImages = [
     '/HomePageImages/GraphicDesing1.jpg', '/HomePageImages/GraphicDesing2.jpg',
     '/HomePageImages/GraphicDesing3.jpg', '/HomePageImages/GraphicDesing4.jpg',
@@ -13,28 +13,25 @@ const ShopPagePaginationContainer = () => {
     '/HomePageImages/GraphicDesing11.jpg', '/HomePageImages/GraphicDesing12.jpg',
   ];
   
-  // Triple the array to simulate 3 pages of content
   const products = [...allImages, ...allImages, ...allImages];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
 
-  // Responsive items per page logic
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1024) { // Mobile & Tablet
+      if (window.innerWidth < 1024) {
         setItemsPerPage(4);
-      } else { // Desktop (lg)
+      } else { 
         setItemsPerPage(12);
       }
     };
 
-    handleResize(); // Check on mount
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Pagination Calculations
   const totalPages = Math.ceil(products.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -42,6 +39,9 @@ const ShopPagePaginationContainer = () => {
 
   return (
     <div className="bg-white">
+
+        <FilterBar/>
+
       <div className="max-w-[1050px] mx-auto px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-20">
           {currentItems.map((product, index) => (
