@@ -85,7 +85,7 @@ const productImages = [
           <h4 className="!text-3xl !font-medium text-[#737373] ">
             Featured Products
           </h4>
-          <h2 className="!text-4xl !font-extrabold text-[#252B42] uppercase px-40 tracking-tight">
+          <h2 className="!text-4xl !font-extrabold text-[#252B42] uppercase tracking-tight lg:px-40">
             BESTSELLER PRODUCTS
           </h2>
           <p className="mx-auto !text-1xl font-medium text-[#737373]">
