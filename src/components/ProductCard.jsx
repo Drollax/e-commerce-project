@@ -1,6 +1,12 @@
-
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const ProductCard = ({ image }) => {
+const history = useHistory()
+
+const productCardClickHandle = () =>{
+  history.push(`/product`)
+}
+
   const colors = [
     { name: 'Light Blue', bg: 'bg-[#23A6F0]' },
     { name: 'Teal', bg: 'bg-[#23856D]' },
@@ -8,11 +14,12 @@ const ProductCard = ({ image }) => {
     { name: 'Dark Navy', bg: 'bg-[#252B42]' },
   ];
 
+
   return (
-    <div className="text-center group p-0 transition-colors duration-300">
+    <div onClick={productCardClickHandle} className="text-center bg-white group pb-4 transition-colors duration-300">
       
       {/* Product Image */}
-      <div className="overflow-hidden bg-slate-100 dark:bg-slate-800 rounded-sm aspect-[3/4]">
+      <div  className="overflow-hidden bg-slate-100 dark:bg-slate-800 rounded-sm aspect-[3/4]">
         <img 
           src={image} 
           alt="Bestseller Product" 
