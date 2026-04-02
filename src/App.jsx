@@ -8,6 +8,7 @@ import ProductPage from './pages/ProductPage';
 import ContactPage from './pages/ContactPage';
 import TeamPage from './pages/TeamPage';
 import AboutUsSection from './pages/AboutUs';
+import Signup from './pages/Signup';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/contact" component={ContactPage}/>
         <Route path="/team" component={TeamPage}/>
         <Route path="/about" component={AboutUsSection}/>
+        <Route path="/signup" component={Signup}/>
       </Switch>
       <Footer/>
     </Router>
