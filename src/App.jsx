@@ -7,6 +7,7 @@ import ShopPage from './pages/ShopPage';
 import ProductPage from './pages/ProductPage';
 import ContactPage from './pages/ContactPage';
 import TeamPage from './pages/TeamPage';
+import AboutUsSection from './pages/AboutUs';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/product" component={ProductPage}/>
         <Route path="/contact" component={ContactPage}/>
         <Route path="/team" component={TeamPage}/>
+        <Route path="/about" component={AboutUsSection}/>
       </Switch>
       <Footer/>
     </Router>
