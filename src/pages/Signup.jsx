@@ -31,17 +31,13 @@ const Signup = () => {
 const onSubmit = async (data) => {
   setIsLoading(true);
 
-  // 1. Extract the 'store' data from the flat form data
   const { confirmPassword, store, ...restOfData } = data;
 
-  // 2. Build the payload
   const payload = {
     ...restOfData,
     role_id: Number(data.role_id),
   };
 
-  // 3. CRITICAL: Only add 'store' if role is Store (ID 2)
-  // and make sure it's an object with the required keys
   if (payload.role_id === 2) {
     payload.store = {
       name: store.name,
