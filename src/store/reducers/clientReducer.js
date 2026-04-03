@@ -37,13 +37,4 @@ const clientReducer = (state = initialstate, action) => {
     }
 }
 
-export const fetchRoles = () => (dispatch, getState) => {
-  const { roles } = getState().client;
-  if (roles.length > 0) return; 
-
-  API.get("/roles")
-    .then(res => dispatch(setRoles(res.data)))
-    .catch(err => console.error("Roles fetch error:", err));
-};
-
 export default clientReducer;
