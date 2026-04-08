@@ -1,3 +1,5 @@
+import { API } from "../../api/axiosInstance";
+
 export const SET_CATEGORIES = "SET_CATEGORIES";
 export const SET_PRODUCT_LIST = "SET_PRODUCT_LIST";
 export const SET_TOTAL = "SET_TOTAL";
@@ -34,3 +36,9 @@ export const setFilter = (filter) => ({
     type: SET_FILTER,
     payload: filter
 });
+
+export const fetchCategories = () => (dispatch) => {
+  API.get("/categories")
+    .then(res => dispatch(setCategories(res.data)))
+    .catch(err => console.error("Categories fetch error:", err));
+}

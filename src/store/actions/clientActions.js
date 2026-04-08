@@ -43,6 +43,7 @@ export const loginUser = (loginData, history, rememberMe) => (dispatch) => {
       
       if (rememberMe) {
         localStorage.setItem("token", res.data.token);
+        API.defaults.headers.common['Authorization'] = res.data.token;
       }
       toast.success("Login successful!");
       if (history > 0){
@@ -54,4 +55,28 @@ export const loginUser = (loginData, history, rememberMe) => (dispatch) => {
     .catch(err => {console.error("Login error:", err);
       toast.error("Login failed!");
     });
+};
+
+export const verifyToken = () => (dispatch) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) return;
+
+  return API.get("/verify")
+    .then((res) => {
+      
+      // 1. Put User object to reducer
+      dispatch(setUser(res.data));
+      
+      // 2. Renew token in localStorage
+      localStorage.setItem("token", res.data.token);
+      
+      // Note: Interceptor handles the axios header renewal automatically
+    })
+    .catch((err) => {
+      console.error("Token verification failed:", err);
+      
+    if (err.response && err.response.status === 401) {
+        localStorage.removeItem("token");
+}});
 };

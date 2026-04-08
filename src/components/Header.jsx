@@ -8,7 +8,8 @@ import Gravatar from 'react-gravatar';
 
 export default function Header() {
   const user = useSelector((state) => state.client.user);
-  const history = useHistory(); // Initialized history
+  const history = useHistory();
+  const categories = useSelector((state) => state.product.categories);
 
   return (
     <header className="w-full font-montserrat">
@@ -45,9 +46,50 @@ export default function Header() {
         {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-6 text-[#737373] mr-100 font-bold">
           <button onClick={() => history.push("/")} className="hover:text-[#252B42]">Home</button>
-          <button onClick={() => history.push("/shop")} className="flex items-center gap-1 hover:text-[#252B42]">
-            Shop <ChevronDown size={14} />
-          </button>
+          <div className="group relative">
+          <button className="flex items-center gap-1 hover:text-[#252B42]">
+          Shop <ChevronDown size={14} />
+           </button>
+  
+          {/* Dropdown Menu */}
+            <div className="hidden group-hover:block absolute top-full left-0 bg-white shadow-xl p-8 min-w-[420px] z-50 rounded-md border border-gray-100">
+              <div className="flex gap-16">
+                
+                {/* Kadın Column */}
+                <div className="flex flex-col gap-4">
+                  <h3 className="!font-bold text-[#252B42] text-lg mb-2">Kadın</h3>
+                  {categories
+                    .filter((cat) => cat.gender === "k") // Only show female categories
+                    .map((cat) => (
+                      <button
+                        key={cat.id}
+                        onClick={() => history.push(`/shop/kadin/${cat.title.toLowerCase()}/${cat.id}`)}
+                        className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors"
+                      >
+                        {cat.title}
+                      </button>
+                    ))}
+                </div>
+
+                {/* Erkek Column */}
+                <div className="flex flex-col gap-4">
+                  <h3 className="!font-bold text-[#252B42] text-lg mb-2">Erkek</h3>
+                  {categories
+                    .filter((cat) => cat.gender === "e") // Only show male categories
+                    .map((cat) => (
+                      <button
+                        key={cat.id}
+                        onClick={() => history.push(`/shop/erkek/${cat.title.toLowerCase()}/${cat.id}`)}
+                        className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors"
+                      >
+                        {cat.title}
+                      </button>
+                    ))}
+                </div>
+
+              </div>
+            </div>
+          </div>
           <button onClick={() => history.push("/about")} className="hover:text-[#252B42]">About</button>
           <button onClick={() => history.push("/blog")} className="hover:text-[#252B42]">Blog</button>
           <button onClick={() => history.push("/contact")} className="hover:text-[#252B42]">Contact</button>
@@ -99,10 +141,10 @@ export default function Header() {
       {/* --- Mobile Menu --- */}
       <div className="lg:hidden flex flex-col items-center gap-8 py-12 text-3xl text-[#737373]">
         <button onClick={() => history.push("/")}>Home</button>
-        <button onClick={() => history.push("/product")}>Product</button>
-        <button onClick={() => history.push("/pricing")}>Pricing</button>
-        <button onClick={() => history.push("/contact")}>Contact</button>
-        <button onClick={() => history.push("/pages")}>Pages</button>
+         <button onClick={() => history.push("/about")} className="hover:text-[#252B42]">About</button>
+          <button onClick={() => history.push("/blog")} className="hover:text-[#252B42]">Blog</button>
+          <button onClick={() => history.push("/contact")} className="hover:text-[#252B42]">Contact</button>
+          <button onClick={() => history.push("/pages")} className="hover:text-[#252B42]">Pages</button>
         
         {/* --- CONDITIONAL USER SECTION (Mobile) --- */}
         <div className="text-2xl">

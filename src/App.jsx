@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,9 +15,19 @@ import AboutUsSection from './pages/AboutUs';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 
+import { verifyToken } from './store/actions/clientActions';
+import { fetchCategories } from './store/actions/productActions';
 
 
 function App() {
+  const dispatch = useDispatch();
+  
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+    dispatch(verifyToken());
+  }, [dispatch]);
+
   return (
     <Router>
       <Header/>
@@ -46,3 +57,6 @@ function App() {
 }
 
 export default App;
+
+/* about us kısmındaki en alttaki bölüm yanlış o düzeltilicek resim ve metin */
+/* mobil headerdaki shop buttonu dropdownu ayarlanıcak */
