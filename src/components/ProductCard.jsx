@@ -6,10 +6,11 @@ const ProductCard = ({ product }) => {
   // Guard clause: in case data is still propogating
   if (!product) return null;
 
-  const productCardClickHandle = () => {
-    // You can also use product.id here if you have a detail page: /product/:id
-    history.push(`/product/${product.id}`);
-  };
+  // Create URL-friendly slug: "Gri Regular Astar" -> "gri-regular-astar"
+    const nameSlug = product.name.toLowerCase().replaceAll(" ", "-");
+    
+    // Assuming you have gender and category info available or passed as props
+    const path = `/shop/gender/category/${product.category_id}/${nameSlug}/${product.id}`;
 
   const colors = [
     { name: 'Light Blue', bg: 'bg-[#23A6F0]' },
@@ -19,7 +20,7 @@ const ProductCard = ({ product }) => {
   ];
 
   return (
-    <div onClick={productCardClickHandle} className="text-center bg-white group pb-4 transition-colors duration-300 cursor-pointer">
+    <div onClick={() => history.push(path)} className="text-center bg-white group pb-4 transition-colors duration-300 cursor-pointer">
       
       {/* Product Image - Mapping to API structure */}
       <div className="overflow-hidden bg-slate-100 dark:bg-slate-800 rounded-sm aspect-[3/4]">

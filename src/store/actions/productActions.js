@@ -7,6 +7,7 @@ export const SET_LIMIT = "SET_LIMIT";
 export const SET_OFFSET = "SET_OFFSET";
 export const SET_FILTER = "SET_FILTER";
 export const SET_FETCH_STATE = "SET_FETCH_STATE";
+export const SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
 
 export const setCategories = (categories) => ({
     type: SET_CATEGORIES,
@@ -43,6 +44,23 @@ export const setFetchState = (fetchState) => ({
     payload: fetchState
 });
 
+export const setSelectedProduct = (product) => ({
+    type: SET_SELECTED_PRODUCT,
+    payload: product
+});
+
+export const fetchProductDetail = (productId) => (dispatch) => {
+    dispatch(setFetchState("FETCHING"));
+    return API.get(`/products/${productId}`)
+        .then((res) => {
+            dispatch(setSelectedProduct(res.data));
+            dispatch(setFetchState("FETCHED"));
+        })
+        .catch((err) => {
+            console.error(err);
+            dispatch(setFetchState("NOT_FETCHED"));
+        });
+};
 
 export const fetchCategories = () => (dispatch) => {
     

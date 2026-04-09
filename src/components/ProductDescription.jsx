@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { ChevronRight } from 'lucide-react';
 
 const ProductDescription = () => {
   const [activeTab, setActiveTab] = useState('Description');
+  const { selectedProduct } = useSelector((state) => state.product);
 
   const tabs = ['Description', 'Additional Information', 'Reviews (0)'];
+
+  // Guard clause if product hasn't loaded yet
+  if (!selectedProduct) return null;
 
   return (
     <div className="w-full bg-white mt-12 pb-10 px-4 md:px-8">
@@ -20,7 +25,7 @@ const ProductDescription = () => {
               : 'text-stone-500 hover:text-stone-700'
             }`}
           >
-            {tab}
+            {tab === 'Reviews (0)' ? `Reviews (0)` : tab}
           </button>
         ))}
       </div>
@@ -28,62 +33,71 @@ const ProductDescription = () => {
       {/* Tab Content */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
         
-        {/* Left Column: Image Card */}
-        <div className="bg-stone-50 rounded-xl overflow-hidden shadow-sm h-full min-h-[300px]">
+        {/* Left Column: Product Image Card */}
+        <div className="bg-stone-50 rounded-xl overflow-hidden shadow-sm aspect-square lg:aspect-auto lg:h-full min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=1000&auto=format&fit=crop" 
-            alt="Interior design"
+            src={selectedProduct.images?.[0]?.url || "https://via.placeholder.com/400"} 
+            alt={selectedProduct.name}
             className="w-full h-full object-cover"
           />
         </div>
 
-        {/* Middle Column: Main Description */}
+        {/* Middle Column: Dynamic Content */}
         <div className="space-y-6">
-          <h3 className="text-2xl font-bold text-stone-900">the quick fox jumps over</h3>
+          <h3 className="text-2xl font-bold text-stone-900">
+            {activeTab === 'Description' ? 'Product Specification' : activeTab}
+          </h3>
           <div className="space-y-4 text-stone-500 text-sm leading-relaxed">
-            <p>
-              Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. 
-              RELIT official consequent door ENIM RELIT Mollie. Excitation venial 
-              consequent sent nostrum met.
-            </p>
-            <p>
-              Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. 
-              RELIT official consequent door ENIM RELIT Mollie. Excitation venial 
-              consequent sent nostrum met.
-            </p>
-            <p>
-              Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. 
-              RELIT official consequent door ENIM RELIT Mollie. Excitation venial 
-              consequent sent nostrum met.
-            </p>
+            {activeTab === 'Description' ? (
+              <>
+                <p className="font-semibold text-stone-700 text-base">{selectedProduct.name}</p>
+                <p>{selectedProduct.description}</p>
+                <p>
+                  Experience the perfect blend of style and functionality. This product has been 
+                  crafted with premium materials to ensure durability and comfort for everyday use.
+                </p>
+              </>
+            ) : (
+              <p>Details for {activeTab} will appear here. Currently viewing specifications for our {selectedProduct.name}.</p>
+            )}
           </div>
         </div>
 
-        {/* Right Column: List Highlights */}
+        {/* Right Column: Key Features / Specs */}
         <div className="space-y-8">
-          {/* Section 1 */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-stone-900">the quick fox jumps over</h3>
+            <h3 className="text-2xl font-bold text-stone-900">Key Features</h3>
             <ul className="space-y-3">
-              {[1, 2, 3, 4].map((item) => (
-                <li key={item} className="flex items-center space-x-3 text-stone-500 text-sm font-semibold">
-                  <ChevronRight size={18} className="text-stone-400" />
-                  <span>the quick fox jumps over the lazy dog</span>
-                </li>
-              ))}
+              <li className="flex items-center space-x-3 text-stone-500 text-sm font-semibold">
+                <ChevronRight size={18} className="text-sky-500" />
+                <span>Rating: {selectedProduct.rating} / 5.0</span>
+              </li>
+              <li className="flex items-center space-x-3 text-stone-500 text-sm font-semibold">
+                <ChevronRight size={18} className="text-sky-500" />
+                <span>Stock: {selectedProduct.stock} units available</span>
+              </li>
+              <li className="flex items-center space-x-3 text-stone-500 text-sm font-semibold">
+                <ChevronRight size={18} className="text-sky-500" />
+                <span>Category ID: {selectedProduct.category_id}</span>
+              </li>
+              <li className="flex items-center space-x-3 text-stone-500 text-sm font-semibold">
+                <ChevronRight size={18} className="text-sky-500" />
+                <span>Verified Quality Materials</span>
+              </li>
             </ul>
           </div>
 
-          {/* Section 2 */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-stone-900">the quick fox jumps over</h3>
+            <h3 className="text-2xl font-bold text-stone-900">Shipping Info</h3>
             <ul className="space-y-3">
-              {[1, 2, 3].map((item) => (
-                <li key={item} className="flex items-center space-x-3 text-stone-500 text-sm font-semibold">
-                  <ChevronRight size={18} className="text-stone-400" />
-                  <span>the quick fox jumps over the lazy dog</span>
-                </li>
-              ))}
+              <li className="flex items-center space-x-3 text-stone-500 text-sm font-semibold">
+                <ChevronRight size={18} className="text-stone-400" />
+                <span>Free standard shipping on orders over $50</span>
+              </li>
+              <li className="flex items-center space-x-3 text-stone-500 text-sm font-semibold">
+                <ChevronRight size={18} className="text-stone-400" />
+                <span>Estimated delivery: 3-5 business days</span>
+              </li>
             </ul>
           </div>
         </div>

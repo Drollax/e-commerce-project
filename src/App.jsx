@@ -33,8 +33,11 @@ function App() {
       <Header/>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/shop/:gender/:categoryName/:categoryId">
+        <Route exact path="/shop/:gender/:categoryName/:categoryId">
         <ShopPage />
+        </Route>
+        <Route path="/shop/:gender/:categoryName/:categoryId/:productNameSlug/:productId">
+          <ProductPage />
         </Route>
         <Route path="/product" component={ProductPage}/>
         <Route path="/contact" component={ContactPage}/>
@@ -62,3 +65,4 @@ export default App;
 
 /* about us kısmındaki en alttaki bölüm yanlış o düzeltilicek resim ve metin */
 /* mobil headerdaki shop buttonu dropdownu ayarlanıcak */
+/* homepagedeki ProductCardlar yeniden ayarlanacak */
