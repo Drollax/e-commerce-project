@@ -66,3 +66,5 @@ export default App;
 /* about us kısmındaki en alttaki bölüm yanlış o düzeltilicek resim ve metin */
 /* mobil headerdaki shop buttonu dropdownu ayarlanıcak */
 /* homepagedeki ProductCardlar yeniden ayarlanacak */
+/* Sepetin renkleri ayarlanıcak */
+/* Sepete silme tuşu eklenecek */

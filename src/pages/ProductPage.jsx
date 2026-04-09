@@ -6,6 +6,7 @@ import ProductDescription from '../components/ProductDescription';
 import ProductCard from '../components/ProductCard';
 import BrandLogos from '../components/BrandLogos';
 import { fetchProductDetail } from '../store/actions/productActions';
+import { addToCart } from '../store/actions/shopActions';
 
 const colors = [
   { name: 'blue', bgColor: 'bg-sky-500' },
@@ -22,6 +23,12 @@ function ProductPage() {
   // Get data from your Redux store
   const { selectedProduct, fetchState, productList } = useSelector((state) => state.product);
   const [currentImageIndex, setCurrentImageIndexIndex] = useState(0);
+
+  const handleAddToCart = () => {
+    if (selectedProduct) {
+      dispatch(addToCart(selectedProduct));
+    }
+  }
 
   // Fetch product on mount
   useEffect(() => {
@@ -158,7 +165,7 @@ function ProductPage() {
 
             {/* Actions */}
             <div className="flex items-center !space-x-4 pt-6">
-              <button className="px-6 py-2.5 bg-sky-500 text-white mr-4 !font-semibold !rounded-md shadow-sm hover:bg-sky-600 text-sm">
+              <button onClick={handleAddToCart} className="px-6 py-2.5 bg-sky-500 text-white mr-4 !font-semibold !rounded-md shadow-sm hover:bg-sky-600 text-sm">
                 Add to Cart
               </button>
               

@@ -5,11 +5,19 @@ import {
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'; // Added import
 import Gravatar from 'react-gravatar'; 
+import { useState } from 'react';
+import CartDropdown from './CardDropdown';
 
 export default function Header() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  
   const user = useSelector((state) => state.client.user);
+  const cart = useSelector((state) => state.shop.cart);
   const history = useHistory();
   const categories = useSelector((state) => state.product.categories);
+
+
+  const totalCount = cart.reduce((acc, item) => acc + item.count, 0);
 
   return (
     <header className="w-full font-montserrat">
@@ -125,9 +133,17 @@ export default function Header() {
 
           <div className="flex items-center gap-4">
             <Search size={24} className="cursor-pointer" />
-            <div className="flex items-center gap-1 cursor-pointer">
-              <ShoppingCart size={24} />
-              <span className="text-xs hidden lg:inline">1</span>
+            <div 
+              className="relative flex items-center gap-1 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevents the click from reaching the 'window'
+                setIsCartOpen(!isCartOpen);
+              }}
+            >
+              <ShoppingCart size={22} />
+              <span className="text-xs font-bold">{totalCount}</span>
+              
+              {isCartOpen && <CartDropdown/>}
             </div>
             <div className="hidden lg:flex items-center gap-1 cursor-pointer">
               <Heart size={24} />
