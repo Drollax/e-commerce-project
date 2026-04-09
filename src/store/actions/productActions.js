@@ -52,17 +52,28 @@ export const fetchCategories = () => (dispatch) => {
     .catch(err => console.error("Categories fetch error:", err));
 }
 
-export const fetchProducts = () => (dispatch) => {
-  dispatch(setFetchState("FETCHING")); // Fix: Use the action creator
+export const fetchProducts = (category, filter, sort) => (dispatch) => {
+  dispatch(setFetchState("FETCHING"));
 
-  return API.get("/products")
+  let queryString = "/products";
+  const params = [];
+
+  if (category) params.push(`category=${category}`);
+  if (filter) params.push(`filter=${filter}`);
+  if (sort) params.push(`sort=${sort}`);
+
+  if (params.length > 0) {
+    queryString += `?${params.join("&")}`;
+  }
+
+  return API.get(queryString)
     .then((res) => {
       dispatch(setProductList(res.data.products));
       dispatch(setTotal(res.data.total));
-      dispatch(setFetchState("FETCHED")); // Fix: Use the action creator
+      dispatch(setFetchState("FETCHED"));
     })
     .catch((err) => {
-      console.error("Product fetch error:", err);
-      dispatch(setFetchState("NOT_FETCHED")); // Fix: Use the action creator
+      console.error(err);
+      dispatch(setFetchState("NOT_FETCHED"));
     });
 };
