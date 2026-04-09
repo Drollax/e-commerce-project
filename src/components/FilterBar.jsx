@@ -1,6 +1,6 @@
 import { LayoutGrid, List } from 'lucide-react';
 
-const FilterBar = ({ filter, setFilter, sort, setSort, onFilterClick, total }) => {
+const FilterBar = ({ filter, setFilter, sort, setSort, onFilterClick, total, limit, setLimit }) => {
   return (
     <div className="bg-white py-6">
       <div className="max-w-[1050px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
@@ -44,6 +44,19 @@ const FilterBar = ({ filter, setFilter, sort, setSort, onFilterClick, total }) =
           >
             Filter
           </button>
+            <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-600">Show:</span>
+
+            <select
+              value={limit}
+              onChange={(e) => setLimit(Number(e.target.value))}
+              className="border border-gray-300 rounded px-2 py-1 text-sm"
+            >
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={75}>75</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

@@ -52,28 +52,26 @@ export const fetchCategories = () => (dispatch) => {
     .catch(err => console.error("Categories fetch error:", err));
 }
 
-export const fetchProducts = (category, filter, sort) => (dispatch) => {
+export const fetchProducts = (category, filter, sort, limit = 25, offset = 0) => (dispatch) => {
   dispatch(setFetchState("FETCHING"));
 
-  let queryString = "/products";
-  const params = [];
+  const params = new URLSearchParams();
+  
+  if (category) params.append("category", category);
+  if (filter) params.append("filter", filter);
+  if (sort) params.append("sort", sort);
+  
+  params.append("limit", limit);
+  params.append("offset", offset);
 
-  if (category) params.push(`category=${category}`);
-  if (filter) params.push(`filter=${filter}`);
-  if (sort) params.push(`sort=${sort}`);
-
-  if (params.length > 0) {
-    queryString += `?${params.join("&")}`;
-  }
-
-  return API.get(queryString)
+  return API.get(`/products?${params.toString()}`)
     .then((res) => {
       dispatch(setProductList(res.data.products));
       dispatch(setTotal(res.data.total));
       dispatch(setFetchState("FETCHED"));
     })
     .catch((err) => {
-      console.error(err);
+      console.error("Fetch error:", err);
       dispatch(setFetchState("NOT_FETCHED"));
     });
 };

@@ -1,44 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchProducts } from '../store/actions/productActions';
+import { fetchProducts, setLimit } from '../store/actions/productActions';
 import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
 import FilterBar from './FilterBar';
 
 const ShopPagePaginationContainer = () => {
   const dispatch = useDispatch();
-  const { categoryId } = useParams(); // URL: /shop/:gender/:name/:categoryId
-  
-  const { productList, fetchState, total } = useSelector((state) => state.product);
+  const { categoryId } = useParams();
+
+  const { productList, fetchState, total, limit } = useSelector((state) => state.product);
 
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(12);
 
-  // Triggered when Filter Button is clicked or Category/Sort changes
+
   const loadProducts = () => {
-    dispatch(fetchProducts(categoryId, filter, sort));
+    const offset = (currentPage - 1) * limit;
+    dispatch(fetchProducts(categoryId, filter, sort, limit, offset));
   };
 
-  // Effect for Category and Sort changes (Automatic reload)
   useEffect(() => {
     loadProducts();
-  }, [dispatch, categoryId, sort]);
+  }, [dispatch, categoryId, sort, currentPage, limit]);
 
-  // Handle Resize for items per page
   useEffect(() => {
-    const handleResize = () => {
-      setItemsPerPage(window.innerWidth < 1024 ? 4 : 12);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    setCurrentPage(1);
+  }, [categoryId, sort, filter]);
 
-  const totalPages = Math.ceil(productList.length / itemsPerPage);
-  const currentItems = productList.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
+
+  const totalPages = Math.ceil(total / limit);
+
+  const handleLimitChange = (newLimit) => {
+  dispatch(setLimit(newLimit));
+  setCurrentPage(1); // reset page when limit changes
+};
 
   return (
     <div className="bg-white min-h-[400px]">
@@ -49,6 +50,8 @@ const ShopPagePaginationContainer = () => {
         setSort={setSort} 
         onFilterClick={loadProducts}
         total={total}
+        limit={limit}
+        setLimit={handleLimitChange}
       />
 
       <div className="max-w-[1050px] mx-auto px-8 py-12">
@@ -60,12 +63,12 @@ const ShopPagePaginationContainer = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-20">
-              {currentItems.map((product) => (
+              {productList.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
 
-            {productList.length > 0 && (
+            {totalPages > 1 && (
               <Pagination 
                 currentPage={currentPage} 
                 setCurrentPage={setCurrentPage} 
@@ -77,6 +80,6 @@ const ShopPagePaginationContainer = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ShopPagePaginationContainer;
