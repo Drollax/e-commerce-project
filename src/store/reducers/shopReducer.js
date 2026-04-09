@@ -1,4 +1,4 @@
-import { SET_CART, SET_PAYMENT, SET_ADDRESS, ADD_TO_CART } from "../actions/shopActions";
+import { SET_CART, SET_PAYMENT, SET_ADDRESS, ADD_TO_CART, UPDATE_CART_ITEM, TOGGLE_CART_ITEM, REMOVE_FROM_CART } from "../actions/shopActions";
 
 const initialState = {
     cart: [], // Expecting: [{ count: 1, checked: true, product: {...} }]
@@ -32,6 +32,31 @@ const shopReducer = (state = initialState, action) => {
                 cart: [...state.cart, { count: 1, checked: true, product: productToAdd }]
             };
         }
+        case UPDATE_CART_ITEM:
+            return {
+                ...state,
+                cart: state.cart.map(item =>
+                    item.product.id === action.payload.productId
+                        ? { ...item, count: Math.max(1, item.count + action.payload.change) }
+                        : item
+                )
+            };
+
+        case TOGGLE_CART_ITEM:
+            return {
+                ...state,
+                cart: state.cart.map(item =>
+                    item.product.id === action.payload
+                        ? { ...item, checked: !item.checked }
+                        : item
+                )
+            };
+
+        case REMOVE_FROM_CART:
+            return {
+                ...state,
+                cart: state.cart.filter(item => item.product.id !== action.payload)
+            };
 
         case SET_CART:
             return {
@@ -48,6 +73,8 @@ const shopReducer = (state = initialState, action) => {
                 ...state,
                 address: action.payload
             };
+
+            
         default:
             return state;
     }

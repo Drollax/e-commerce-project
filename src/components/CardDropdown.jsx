@@ -1,11 +1,13 @@
 
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 const CartDropdown = () => {
   const cart = useSelector((state) => state.shop.cart);
+  const history = useHistory();
 
   return (
-    <div className="absolute right-0 top-full mt-2 w-80 bg-white shadow-2xl rounded-md border border-stone-200 z-50 overflow-hidden">
+    <div onClick={(e) => e.stopPropagation()} className="absolute right-0 top-full mt-2 w-80 bg-white shadow-2xl rounded-md border border-stone-200 z-50 overflow-hidden">
       <div className="p-4">
         <h3 className="text-stone-800 font-bold text-sm mb-4">
           Sepetim ({cart.reduce((acc, item) => acc + item.count, 0)} Ürün)
@@ -42,10 +44,10 @@ const CartDropdown = () => {
       {/* Action Buttons */}
       {cart.length > 0 && (
         <div className="p-4 bg-stone-50 grid grid-cols-2 gap-3 border-t border-stone-200">
-          <button className="py-2.5 text-xs font-bold border border-stone-300 rounded text-stone-700 hover:bg-white transition-colors">
+          <button onClick={() => history.push("/cart")} className="py-2.5 text-xs font-bold border border-stone-300 rounded text-stone-700 hover:bg-white transition-colors">
             Sepete Git
           </button>
-          <button className="py-2.5 text-xs font-bold bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors shadow-sm">
+          <button onClick={() => history.push("/checkout")} className="py-2.5 text-xs font-bold bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors shadow-sm">
             Siparişi Tamamla
           </button>
         </div>

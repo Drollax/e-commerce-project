@@ -17,6 +17,7 @@ import Login from './pages/Login';
 
 import { verifyToken } from './store/actions/clientActions';
 import { fetchCategories } from './store/actions/productActions';
+import CartPage from './pages/CartPage';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path="/about" component={AboutUsSection}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/login" component={Login}/>
+        <Route path="/cart" component={CartPage}/>
       </Switch>
       <Footer/>
       <ToastContainer position="bottom-right"
