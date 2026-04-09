@@ -6,6 +6,7 @@ export const SET_TOTAL = "SET_TOTAL";
 export const SET_LIMIT = "SET_LIMIT";
 export const SET_OFFSET = "SET_OFFSET";
 export const SET_FILTER = "SET_FILTER";
+export const SET_FETCH_STATE = "SET_FETCH_STATE";
 
 export const setCategories = (categories) => ({
     type: SET_CATEGORIES,
@@ -37,8 +38,31 @@ export const setFilter = (filter) => ({
     payload: filter
 });
 
+export const setFetchState = (fetchState) => ({
+    type: SET_FETCH_STATE,
+    payload: fetchState
+});
+
+
 export const fetchCategories = () => (dispatch) => {
+    
+
   API.get("/categories")
     .then(res => dispatch(setCategories(res.data)))
     .catch(err => console.error("Categories fetch error:", err));
 }
+
+export const fetchProducts = () => (dispatch) => {
+  dispatch(setFetchState("FETCHING")); // Fix: Use the action creator
+
+  return API.get("/products")
+    .then((res) => {
+      dispatch(setProductList(res.data.products));
+      dispatch(setTotal(res.data.total));
+      dispatch(setFetchState("FETCHED")); // Fix: Use the action creator
+    })
+    .catch((err) => {
+      console.error("Product fetch error:", err);
+      dispatch(setFetchState("NOT_FETCHED")); // Fix: Use the action creator
+    });
+};
