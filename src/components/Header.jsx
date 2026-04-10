@@ -71,7 +71,7 @@ export default function Header() {
               <div className="flex gap-16">
                 <div className="flex flex-col gap-4">
                   <h3 className="!font-bold text-[#252B42] text-lg mb-2">Kadın</h3>
-                  {categories.filter((cat) => cat.gender === "k").map((cat) => (
+                  {categories?.filter((cat) => cat.gender === "k").map((cat) => (
                     <button key={cat.id} onClick={() => history.push(`/shop/kadin/${cat.title.toLowerCase()}/${cat.id}`)} className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors">
                       {cat.title}
                     </button>
@@ -79,7 +79,7 @@ export default function Header() {
                 </div>
                 <div className="flex flex-col gap-4">
                   <h3 className="!font-bold text-[#252B42] text-lg mb-2">Erkek</h3>
-                  {categories.filter((cat) => cat.gender === "e").map((cat) => (
+                  {categories?.filter((cat) => cat.gender === "e").map((cat) => (
                     <button key={cat.id} onClick={() => history.push(`/shop/erkek/${cat.title.toLowerCase()}/${cat.id}`)} className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors">
                       {cat.title}
                     </button>
@@ -168,7 +168,7 @@ export default function Header() {
               <div className="flex gap-16">
                 <div className="flex flex-col gap-4">
                   <h3 className="!font-bold text-[#252B42] text-lg mb-2">Kadın</h3>
-                  {categories.filter((cat) => cat.gender === "k").map((cat) => (
+                  {categories?.filter((cat) => cat.gender === "k").map((cat) => (
                     <button key={cat.id} onClick={() => history.push(`/shop/kadin/${cat.title.toLowerCase()}/${cat.id}`)} className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors">
                       {cat.title}
                     </button>
@@ -176,7 +176,7 @@ export default function Header() {
                 </div>
                 <div className="flex flex-col gap-4">
                   <h3 className="!font-bold text-[#252B42] text-lg mb-2">Erkek</h3>
-                  {categories.filter((cat) => cat.gender === "e").map((cat) => (
+                  {categories?.filter((cat) => cat.gender === "e").map((cat) => (
                     <button key={cat.id} onClick={() => history.push(`/shop/erkek/${cat.title.toLowerCase()}/${cat.id}`)} className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors">
                       {cat.title}
                     </button>
