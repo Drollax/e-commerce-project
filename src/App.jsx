@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,11 +20,13 @@ import { fetchCategories } from './store/actions/productActions';
 import CartPage from './pages/CartPage';
 import OrderPage from './pages/OrderPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import OrdersPage from './pages/OrdersPage';
 
 
 function App() {
   const dispatch = useDispatch();
   
+  const user = useSelector((state) => state.client.user);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -50,6 +52,7 @@ function App() {
         <Route path="/login" component={Login}/>
         <Route path="/cart" component={CartPage}/>
         <ProtectedRoute path="/checkout" component={OrderPage}/>
+        <ProtectedRoute path="/previous-orders" component={OrdersPage}/>
       </Switch>
       <Footer/>
       <ToastContainer position="bottom-right"

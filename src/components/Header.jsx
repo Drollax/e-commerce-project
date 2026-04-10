@@ -2,8 +2,8 @@ import {
   Phone, Mail, Instagram, Youtube, Facebook, Twitter, 
   Search, ShoppingCart, Heart, User, ChevronDown, Menu 
 } from 'lucide-react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom'; // Added import
+import { useSelector, useDispatch } from 'react-redux'; // Added useDispatch
+import { useHistory } from 'react-router-dom';
 import Gravatar from 'react-gravatar'; 
 import { useState } from 'react';
 import CartDropdown from './CardDropdown';
@@ -13,11 +13,18 @@ export default function Header() {
   
   const user = useSelector((state) => state.client.user);
   const cart = useSelector((state) => state.shop.cart);
-  const history = useHistory();
   const categories = useSelector((state) => state.product.categories);
-
+  
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const totalCount = cart.reduce((acc, item) => acc + item.count, 0);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    history.push("/login");
+    window.location.reload();
+  };
 
   return (
     <header className="w-full font-montserrat">
@@ -52,82 +59,78 @@ export default function Header() {
         <h1 onClick={() => history.push("/")} className="text-2xl !font-bold text-[#252B42] cursor-pointer">Bandage</h1>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-6 text-[#737373] mr-100 font-bold">
+        <div className="hidden lg:flex items-center gap-6 text-[#737373] font-bold">
           <button onClick={() => history.push("/")} className="hover:text-[#252B42]">Home</button>
+          
           <div className="group relative">
-          <button className="flex items-center gap-1 hover:text-[#252B42]">
-          Shop <ChevronDown size={14} />
-           </button>
-  
-          {/* Dropdown Menu */}
+            <button className="flex items-center gap-1 hover:text-[#252B42]">
+              Shop <ChevronDown size={14} />
+            </button>
+            {/* Shop Dropdown Menu */}
             <div className="hidden group-hover:block absolute top-full left-0 bg-white shadow-xl p-8 min-w-[420px] z-50 rounded-md border border-gray-100">
               <div className="flex gap-16">
-                
-                {/* Kadın Column */}
                 <div className="flex flex-col gap-4">
                   <h3 className="!font-bold text-[#252B42] text-lg mb-2">Kadın</h3>
-                  {categories
-                    .filter((cat) => cat.gender === "k") // Only show female categories
-                    .map((cat) => (
-                      <button
-                        key={cat.id}
-                        onClick={() => history.push(`/shop/kadin/${cat.title.toLowerCase()}/${cat.id}`)}
-                        className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors"
-                      >
-                        {cat.title}
-                      </button>
-                    ))}
+                  {categories.filter((cat) => cat.gender === "k").map((cat) => (
+                    <button key={cat.id} onClick={() => history.push(`/shop/kadin/${cat.title.toLowerCase()}/${cat.id}`)} className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors">
+                      {cat.title}
+                    </button>
+                  ))}
                 </div>
-
-                {/* Erkek Column */}
                 <div className="flex flex-col gap-4">
                   <h3 className="!font-bold text-[#252B42] text-lg mb-2">Erkek</h3>
-                  {categories
-                    .filter((cat) => cat.gender === "e") // Only show male categories
-                    .map((cat) => (
-                      <button
-                        key={cat.id}
-                        onClick={() => history.push(`/shop/erkek/${cat.title.toLowerCase()}/${cat.id}`)}
-                        className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors"
-                      >
-                        {cat.title}
-                      </button>
-                    ))}
+                  {categories.filter((cat) => cat.gender === "e").map((cat) => (
+                    <button key={cat.id} onClick={() => history.push(`/shop/erkek/${cat.title.toLowerCase()}/${cat.id}`)} className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors">
+                      {cat.title}
+                    </button>
+                  ))}
                 </div>
-
               </div>
             </div>
           </div>
+
           <button onClick={() => history.push("/about")} className="hover:text-[#252B42]">About</button>
           <button onClick={() => history.push("/blog")} className="hover:text-[#252B42]">Blog</button>
           <button onClick={() => history.push("/contact")} className="hover:text-[#252B42]">Contact</button>
-          <button onClick={() => history.push("/pages")} className="hover:text-[#252B42]">Pages</button>
         </div>
 
         {/* Action Icons */}
         <div className="flex items-center gap-4 lg:gap-8 text-[#23A6F0]">
           
-          {/* --- CONDITIONAL USER SECTION (Desktop) --- */}
-          <div className="hidden lg:flex items-center gap-2 font-bold cursor-pointer">
+          {/* --- USER SECTION (Desktop with Dropdown) --- */}
+          <div className="hidden lg:block">
             {user && user.name ? (
-              // Logged In State
-              <div className="flex items-center gap-2">
-                <Gravatar 
-                  email={user.email} 
-                  size={25} 
-                  className="rounded-full" 
-                  default="identicon" 
-                />
-                <span className="text-[#23A6F0]">{user.name}</span>
+              <div className="group relative flex items-center gap-2 py-2 cursor-pointer">
+                <Gravatar email={user.email} size={25} className="rounded-full" default="identicon" />
+                <span className="font-bold">{user.name}</span>
+                <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
+
+                {/* Account Dropdown */}
+                <div className="hidden group-hover:block absolute top-full right-0 bg-white shadow-xl p-4 min-w-[180px] z-50 rounded-md border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <button 
+                      onClick={() => history.push("/previous-orders")}
+                      className="text-left text-sm text-[#737373] hover:text-[#23A6F0] font-bold transition-colors"
+                    >
+                      Siparişlerim
+                    </button>
+                    <hr className="border-gray-50" />
+                    <button 
+                      onClick={handleLogout}
+                      className="text-left text-sm text-red-500 hover:text-red-700 font-bold transition-colors"
+                    >
+                      Çıkış Yap
+                    </button>
+                  </div>
+                </div>
               </div>
             ) : (
-              // Logged Out State
-              <>
+              <div className="flex items-center gap-2 font-bold">
                 <User size={18} />
                 <button onClick={() => history.push("/login")} className="hover:underline">Login</button>
                 <span> / </span>
                 <button onClick={() => history.push("/signup")} className="hover:underline">Register</button>
-              </>
+              </div>
             )}
           </div>
 
@@ -136,13 +139,12 @@ export default function Header() {
             <div 
               className="relative flex items-center gap-1 cursor-pointer"
               onClick={(e) => {
-                e.stopPropagation(); // Prevents the click from reaching the 'window'
+                e.stopPropagation();
                 setIsCartOpen(!isCartOpen);
               }}
             >
               <ShoppingCart size={22} />
               <span className="text-xs font-bold">{totalCount}</span>
-              
               {isCartOpen && <CartDropdown/>}
             </div>
             <div className="hidden lg:flex items-center gap-1 cursor-pointer">
@@ -157,18 +159,45 @@ export default function Header() {
       {/* --- Mobile Menu --- */}
       <div className="lg:hidden flex flex-col items-center gap-8 py-12 text-3xl text-[#737373]">
         <button onClick={() => history.push("/")}>Home</button>
-         <button onClick={() => history.push("/about")} className="hover:text-[#252B42]">About</button>
-          <button onClick={() => history.push("/blog")} className="hover:text-[#252B42]">Blog</button>
-          <button onClick={() => history.push("/contact")} className="hover:text-[#252B42]">Contact</button>
-          <button onClick={() => history.push("/pages")} className="hover:text-[#252B42]">Pages</button>
-        
-        {/* --- CONDITIONAL USER SECTION (Mobile) --- */}
-        <div className="text-2xl">
-          {user && user.name ? (
-            <div className="flex flex-col items-center gap-4">
-               <Gravatar email={user.email} size={50} className="rounded-full" />
-               <span className="text-[#23A6F0] font-bold">{user.name}</span>
+        <div className="group relative">
+            <button className="flex items-center gap-1 hover:text-[#252B42]">
+              Shop <ChevronDown size={14} />
+            </button>
+            {/* Shop Dropdown Menu */}
+            <div className="hidden group-hover:block absolute top-full left-0 bg-white shadow-xl p-8 min-w-[420px] z-50 rounded-md border border-gray-100">
+              <div className="flex gap-16">
+                <div className="flex flex-col gap-4">
+                  <h3 className="!font-bold text-[#252B42] text-lg mb-2">Kadın</h3>
+                  {categories.filter((cat) => cat.gender === "k").map((cat) => (
+                    <button key={cat.id} onClick={() => history.push(`/shop/kadin/${cat.title.toLowerCase()}/${cat.id}`)} className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors">
+                      {cat.title}
+                    </button>
+                  ))}
+                </div>
+                <div className="flex flex-col gap-4">
+                  <h3 className="!font-bold text-[#252B42] text-lg mb-2">Erkek</h3>
+                  {categories.filter((cat) => cat.gender === "e").map((cat) => (
+                    <button key={cat.id} onClick={() => history.push(`/shop/erkek/${cat.title.toLowerCase()}/${cat.id}`)} className="text-left text-[#737373] hover:text-[#23A6F0] font-medium transition-colors">
+                      {cat.title}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
+          </div>
+        <button onClick={() => history.push("/about")}>About</button>
+        <button onClick={() => history.push("/contact")}>Contact</button>
+        
+        <div className="text-2xl pt-4 border-t w-full flex flex-col items-center gap-6">
+          {user && user.name ? (
+            <>
+              <div className="flex items-center gap-4">
+                <Gravatar email={user.email} size={50} className="rounded-full" />
+                <span className="text-[#23A6F0] font-bold">{user.name}</span>
+              </div>
+              <button onClick={() => history.push("/previous-orders")} className="text-[#23A6F0] font-bold">Siparişlerim</button>
+              <button onClick={handleLogout} className="text-red-500 font-bold">Çıkış Yap</button>
+            </>
           ) : (
             <div className="flex items-center gap-2">
                <button onClick={() => history.push("/login")} className="text-[#23A6F0] hover:underline">Login</button>
