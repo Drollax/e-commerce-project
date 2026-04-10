@@ -18,6 +18,7 @@ import Login from './pages/Login';
 import { verifyToken } from './store/actions/clientActions';
 import { fetchCategories } from './store/actions/productActions';
 import CartPage from './pages/CartPage';
+import OrderPage from './pages/OrderPage';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
         <Route path="/signup" component={Signup}/>
         <Route path="/login" component={Login}/>
         <Route path="/cart" component={CartPage}/>
+        <Route path="/checkout" component={OrderPage}/>
       </Switch>
       <Footer/>
       <ToastContainer position="bottom-right"
@@ -70,3 +72,4 @@ export default App;
 /* homepagedeki ProductCardlar yeniden ayarlanacak */
 /* Sepetin renkleri ayarlanıcak */
 /* Sepete silme tuşu eklenecek */
+/* OrderPagedekiler redux ile düzenlenecek */

@@ -2,10 +2,14 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Trash2, Plus, Minus, ChevronRight, Truck } from 'lucide-react';
 import { updateCartItemPiece, toggleCartItem, removeFromCartCompletely } from '../store/actions/shopActions';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+import OrderSummary from '../components/OrderSummary';
 
 const CartPage = () => {
   const cart = useSelector((state) => state.shop.cart);
   const dispatch = useDispatch();
+  
+const history = useHistory();
 
   // --- Shipping Constants ---
   const SHIPPING_FEE = 29.99;
@@ -80,55 +84,10 @@ const CartPage = () => {
           )}
         </div>
 
-        {/* Right Side: Updated Order Summary */}
-        <div className="space-y-4">
-          <div className="bg-white p-8 rounded-lg border border-stone-200 shadow-sm">
-            <h3 className="text-xl font-bold text-[#252B42] mb-6">Order Summary</h3>
-            
-            <div className="space-y-4 text-sm">
-              <div className="flex justify-between text-stone-600">
-                <span>Subtotal</span>
-                <span className="font-bold text-stone-900">${subtotal.toFixed(2)}</span>
-              </div>
-              
-              <div className="flex justify-between text-stone-600">
-                <span>Shipping</span>
-                <span className="font-bold text-stone-900">
-                  {subtotal > 0 && shippingCost === 0 ? (
-                    <span className="text-[#23856D]">FREE</span>
-                  ) : (
-                    `$${shippingCost.toFixed(2)}`
-                  )}
-                </span>
-              </div>
-
-              {subtotal > 0 && subtotal < FREE_SHIPPING_THRESHOLD && (
-                <div className="bg-sky-50 p-3 rounded-md flex items-start gap-2 text-[11px] text-sky-700">
-                  <Truck size={14} className="mt-0.5" />
-                  <p>
-                    Add <strong>${(FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2)}</strong> more to qualify for <strong>FREE SHIPPING!</strong>
-                  </p>
-                </div>
-              )}
-
-              <div className="pt-6 border-t border-stone-100 flex justify-between items-center">
-                <span className="text-lg font-bold text-[#252B42]">Grand Total</span>
-                <span className="text-2xl font-black text-[#23A6F0]">${totalPayment.toFixed(2)}</span>
-              </div>
-            </div>
-
-            <button 
-              disabled={subtotal === 0}
-              className="w-full bg-[#23A6F0] text-white py-4 rounded-md font-bold mt-8 hover:bg-[#1a85c2] transition-all disabled:bg-stone-200 disabled:cursor-not-allowed shadow-md hover:shadow-lg flex items-center justify-center gap-2 uppercase text-sm tracking-widest"
-            >
-              Checkout <ChevronRight size={18} />
-            </button>
-          </div>
-          
-          <p className="text-[10px] text-stone-400 text-center px-4">
-            Shipping costs are calculated based on your location and selection.
-          </p>
-        </div>
+       <OrderSummary 
+          buttonText="Checkout" 
+          onButtonClick={() => history.push("/checkout")} 
+        />
       </div>
     </div>
   );
