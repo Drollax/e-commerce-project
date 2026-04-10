@@ -15,6 +15,7 @@ const ShopPagePaginationContainer = () => {
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [view, setView] = useState('grid'); // Default view
 
 
   const loadProducts = () => {
@@ -52,6 +53,9 @@ const ShopPagePaginationContainer = () => {
         total={total}
         limit={limit}
         setLimit={handleLimitChange}
+        view={view}
+        setView={setView}
+
       />
 
       <div className="max-w-[1050px] mx-auto px-8 py-12">
@@ -62,11 +66,19 @@ const ShopPagePaginationContainer = () => {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-20">
-              {productList.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+           <div className={
+            view === 'grid' 
+            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-20" 
+            : "flex flex-col gap-y-8" // List view: vertical stack
+          }>
+            {productList.map((product) => (
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                view={view} // Optional: pass view to Card if you want to change its shape too
+              />
+            ))}
+          </div>
 
             {totalPages > 1 && (
               <Pagination 

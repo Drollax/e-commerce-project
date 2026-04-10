@@ -1,26 +1,53 @@
 import { LayoutGrid, List } from 'lucide-react';
 
-const FilterBar = ({ filter, setFilter, sort, setSort, onFilterClick, total, limit, setLimit }) => {
+const FilterBar = ({ 
+  filter, setFilter, 
+  sort, setSort, 
+  onFilterClick, 
+  total, 
+  limit, setLimit,
+  view, setView // New props
+}) => {
   return (
     <div className="bg-white py-6">
       <div className="max-w-[1050px] mx-auto px-4 md:px-8 flex flex-col gap-6">
         
-        {/* Top Row: Total Results & View Switcher */}
         <div className="flex justify-between items-center w-full">
           <p className="text-sm font-bold text-[#737373]">
             Showing all {total} results
           </p>
           <div className="flex items-center gap-4">
             <span className="hidden sm:inline text-sm font-bold text-[#737373]">Views:</span>
-            <button className="p-3 md:p-4 border border-[#ECECEC] rounded-[5px] text-[#252B42] hover:bg-[#FAFAFA]"><LayoutGrid size={16} /></button>
-            <button className="p-3 md:p-4 border border-[#ECECEC] rounded-[5px] text-[#737373] hover:bg-[#FAFAFA]"><List size={16} /></button>
+            
+            {/* Grid Button */}
+            <button 
+              onClick={() => setView('grid')}
+              className={`p-3 md:p-4 border rounded-[5px] transition-colors ${
+                view === 'grid' 
+                ? 'bg-[#23A6F0] text-white border-[#23A6F0]' 
+                : 'text-[#252B42] border-[#ECECEC] hover:bg-[#FAFAFA]'
+              }`}
+            >
+              <LayoutGrid size={16} />
+            </button>
+
+            {/* List Button */}
+            <button 
+              onClick={() => setView('list')}
+              className={`p-3 md:p-4 border rounded-[5px] transition-colors ${
+                view === 'list' 
+                ? 'bg-[#23A6F0] text-white border-[#23A6F0]' 
+                : 'text-[#737373] border-[#ECECEC] hover:bg-[#FAFAFA]'
+              }`}
+            >
+              <List size={16} />
+            </button>
+            
           </div>
         </div>
 
-        {/* Bottom Row: Search, Sort, Limit & Filter Button */}
+        {/* ... (rest of your search/sort/filter code) ... */}
         <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-3 md:gap-4">
-          
-          {/* Search Input - Full width on tiny mobile, fixed on larger */}
           <input 
             type="text"
             value={filter}
@@ -29,9 +56,7 @@ const FilterBar = ({ filter, setFilter, sort, setSort, onFilterClick, total, lim
             className="bg-[#F9F9F9] border border-[#DDDDDD] text-sm px-4 py-3 rounded-[5px] outline-none w-full md:w-48 lg:w-64"
           />
 
-          {/* Grouping Selects and Button for better flow on mobile */}
           <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 w-full md:w-auto">
-            
             <select 
               value={sort}
               onChange={(e) => setSort(e.target.value)}
@@ -65,7 +90,6 @@ const FilterBar = ({ filter, setFilter, sort, setSort, onFilterClick, total, lim
             </button>
           </div>
         </div>
-
       </div>
     </div>
   );
