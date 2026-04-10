@@ -21,6 +21,7 @@ import CartPage from './pages/CartPage';
 import OrderPage from './pages/OrderPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import OrdersPage from './pages/OrdersPage';
+import OrderSuccess from './components/OrderSuccess';
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
         <Route path="/cart" component={CartPage}/>
         <ProtectedRoute path="/checkout" component={OrderPage}/>
         <ProtectedRoute path="/previous-orders" component={OrdersPage}/>
+        <Route path="/order-success" component={OrderSuccess}/>
       </Switch>
       <Footer/>
       <ToastContainer position="bottom-right"

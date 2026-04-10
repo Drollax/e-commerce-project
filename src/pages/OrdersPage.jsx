@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // Or your custom axios instance with interceptors
+import axios from 'axios';
+import { API } from '../api/axiosInstance';
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Replace with your actual API instance/URL
-    const token = localStorage.getItem("token");
-    axios.get('https://workintech-fe-ecommerce.onrender.com/order', {
-      headers: { Authorization: token }
-    })
+    API.get('/order')
     .then(res => {
       setOrders(res.data);
       setLoading(false);

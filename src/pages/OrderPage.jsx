@@ -121,7 +121,7 @@ const OrderPage = () => {
         dispatch(setPayment({}));
         
         // Redirect to a "Success" or "Orders" page
-        history.push("/"); 
+        history.push("/order-success"); 
       })
       .catch(err => {
         console.error("Order Error:", err);
