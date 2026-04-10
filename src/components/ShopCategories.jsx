@@ -8,9 +8,9 @@ const ShopCategories = () => {
   const categories = useSelector((state) => state.product.categories);
 
   // Filter and sort the top 5 categories by rating value
-  const topCategories = [...categories || []]
-    .sort((a, b) => b.rating - a.rating)
-    .slice(0, 5);
+  const topCategories = Array.isArray(categories) 
+    ? [...categories].sort((a, b) => b.rating - a.rating).slice(0, 5)
+    : [];
 
   return (
     <div className="bg-[#FAFAFA] w-full font-montserrat pb-12">
