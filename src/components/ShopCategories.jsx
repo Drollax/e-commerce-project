@@ -28,7 +28,7 @@ const ShopCategories = () => {
       {/* Categories Grid */}
       <div className="max-w-[1050px] mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-[15px]">
-          {topCategories.map((cat) => (
+          {topCategories?.map((cat) => (
             <div
               key={cat.id} 
               onClick={() => history.push(`/shop/${cat.gender === 'k' ? 'kadin' : 'erkek'}/${cat.title.toLowerCase()}/${cat.id}`)}
