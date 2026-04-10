@@ -5,16 +5,19 @@ import { Plus, CheckCircle, CreditCard, Trash2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import OrderSummary from '../components/OrderSummary';
-import { setAddress, setPayment } from '../store/actions/shopActions'; // Ensure setPayment exists
+import { clearCart, setAddress, setPayment } from '../store/actions/shopActions'; // Ensure setPayment exists
 import { fetchCards } from '../store/actions/clientActions';
 import PaymentSection from '../components/PaymentSection'; // The component we discussed earlier
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 const OrderPage = () => {
   const dispatch = useDispatch();
-  
+  const history = useHistory();
   // 1. Redux State
   const selectedAddress = useSelector((state) => state.shop.address);
   const selectedPayment = useSelector((state) => state.shop.payment);
+  const cart = useSelector((state) => state.shop.cart);
+  
   
   
   // 2. Local State
@@ -80,14 +83,59 @@ const OrderPage = () => {
     }
   };
 
+  // --- FINAL ORDER SUBMISSION LOGIC ---
+  const handleCreateOrder = () => {
+    // 1. Calculate Total Price (Subtotal + Shipping)
+    const subtotal = cart.reduce((acc, item) => acc + (item.product.price * item.count), 0);
+    const shippingFee = subtotal > 150 ? 0 : 29.99;
+    const totalPrice = Number((subtotal + shippingFee).toFixed(2));
+
+    // 2. Format Products Array
+    const productsPayload = cart.map(item => ({
+      product_id: item.product.id,
+      count: item.count,
+      detail: `${item.product.name}` // Customize this based on your item attributes
+    }));
+
+    // 3. Construct Payload
+    const orderPayload = {
+      address_id: selectedAddress.id,
+      order_date: new Date().toISOString().slice(0, 19), // Format: 2024-01-10T14:18:30
+      card_no: Number(selectedPayment.card_no),
+      card_name: selectedPayment.name_on_card,
+      card_expire_month: selectedPayment.expire_month,
+      card_expire_year: selectedPayment.expire_year,
+      card_ccv: 321, // Placeholder
+      price: totalPrice,
+      products: productsPayload
+    };
+
+    // 4. API Request
+    API.post('/order', orderPayload)
+      .then(() => {
+        toast.success("Siparişiniz başarıyla alındı! Keyifli alışverişler dileriz.");
+        
+        // Reset shopping cart and selections
+        dispatch(clearCart());
+        dispatch(setAddress({}));
+        dispatch(setPayment({}));
+        
+        // Redirect to a "Success" or "Orders" page
+        history.push("/"); 
+      })
+      .catch(err => {
+        console.error("Order Error:", err);
+        toast.error("Sipariş oluşturulurken bir hata meydana geldi.");
+      });
+  };
+
   // 4. Step Transition Logic
   const handleContinue = () => {
     if (activeStep === 1) {
       setActiveStep(2);
       window.scrollTo(0, 0);
     } else {
-      toast.success("Siparişiniz başarıyla alındı!");
-      // Here you would typically POST to /order
+      handleCreateOrder();
     }
   };
 

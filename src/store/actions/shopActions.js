@@ -5,6 +5,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const UPDATE_CART_ITEM = "UPDATE_CART_ITEM";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const TOGGLE_CART_ITEM = "TOGGLE_CART_ITEM";
+export const CLEAR_CART = "CLEAR_CART";
 
 
 export const updateCartItemPiece = (productId, change) => ({
@@ -40,4 +41,8 @@ export const setPayment = (payment) => ({
 export const setAddress = (address) => ({
     type: SET_ADDRESS,
     payload: address
+});
+
+export const clearCart = () => ({
+    type: CLEAR_CART
 });

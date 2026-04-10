@@ -1,4 +1,4 @@
-import { SET_CART, SET_PAYMENT, SET_ADDRESS, ADD_TO_CART, UPDATE_CART_ITEM, TOGGLE_CART_ITEM, REMOVE_FROM_CART } from "../actions/shopActions";
+import { SET_CART, SET_PAYMENT, SET_ADDRESS, ADD_TO_CART, UPDATE_CART_ITEM, TOGGLE_CART_ITEM, REMOVE_FROM_CART, CLEAR_CART} from "../actions/shopActions";
 
 const initialState = {
     cart: [], // Expecting: [{ count: 1, checked: true, product: {...} }]
@@ -72,6 +72,11 @@ const shopReducer = (state = initialState, action) => {
             return {
                 ...state,
                 address: action.payload
+            };
+        case CLEAR_CART:
+            return {
+                ...state,
+                cart: []
             };
 
             
