@@ -12,7 +12,7 @@ const CartDropdown = () => {
         <h3 className="text-stone-800 font-bold text-sm mb-4">
           Sepetim ({cart.reduce((acc, item) => acc + item.count, 0)} Ürün)
         </h3>
-        
+        <hr></hr>
         <div className="max-h-80 overflow-y-auto space-y-4">
           {cart.length === 0 ? (
             <p className="text-stone-500 text-center py-4">Sepetiniz boş</p>
@@ -31,7 +31,7 @@ const CartDropdown = () => {
                   <p className="text-[11px] text-stone-500 mt-1">
                     Adet: {item.count}
                   </p>
-                  <p className="text-sm font-bold text-orange-500 mt-1">
+                  <p className="text-sm font-bold text-sky-700 mt-1">
                     {item.product.price} TL
                   </p>
                 </div>
@@ -47,7 +47,7 @@ const CartDropdown = () => {
           <button onClick={() => history.push("/cart")} className="py-2.5 text-xs font-bold border border-stone-300 rounded text-stone-700 hover:bg-white transition-colors">
             Sepete Git
           </button>
-          <button onClick={() => history.push("/checkout")} className="py-2.5 text-xs font-bold bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors shadow-sm">
+          <button onClick={() => history.push("/checkout")} className="py-2.5 text-xs font-bold bg-sky-500 text-white rounded hover:bg-sky-600 transition-colors shadow-sm">
             Siparişi Tamamla
           </button>
         </div>
