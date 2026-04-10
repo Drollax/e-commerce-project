@@ -63,10 +63,13 @@ export const fetchProductDetail = (productId) => (dispatch) => {
 };
 
 export const fetchCategories = () => (dispatch) => {
-    
-
   API.get("/categories")
-    .then(res => dispatch(setCategories(res.data)))
+    .then(res => {
+      // If the API returns the array directly, use res.data
+      // If the API returns { categories: [...] }, use res.data.categories
+      const categoryData = Array.isArray(res.data) ? res.data : (res.data.categories || []);
+      dispatch(setCategories(categoryData));
+    })
     .catch(err => console.error("Categories fetch error:", err));
 }
 
