@@ -5,6 +5,8 @@ export const SET_USER = "SET_USER";
 export const SET_ROLES = "SET_ROLES";
 export const SET_THEME = "SET_THEME";
 export const SET_LANGUAGE = "SET_LANGUAGE";
+export const SET_ADDRESS_LIST = "SET_ADDRESS_LIST";
+export const SET_CREDIT_CARDS = "SET_CREDIT_CARDS";
 
 export const setUser = (user) => ({
     type: SET_USER,
@@ -24,6 +26,16 @@ export const setTheme = (theme) => ({
 export const setLanguage = (language) => ({
     type: SET_LANGUAGE,
     payload: language
+});
+
+export const setAddressList = (addressList) => ({
+    type: SET_ADDRESS_LIST,
+    payload: addressList
+});
+
+export const setCreditCards = (cards) => ({
+    type: SET_CREDIT_CARDS,
+    payload: cards
 });
 
 export const fetchRoles = () => (dispatch, getState) => {
@@ -80,3 +92,10 @@ export const verifyToken = () => (dispatch) => {
         localStorage.removeItem("token");
 }});
 };
+
+export const fetchCards = () => (dispatch) => {
+    API.get("/user/card")
+        .then(res => dispatch(setCreditCards(res.data)))
+        .catch(err => console.error("Error fetching cards:", err));
+};
+
