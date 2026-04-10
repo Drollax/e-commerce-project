@@ -6,21 +6,21 @@ import ProductCarousel from '../components/ProductCarousel';
 import NeuralUniverse from '../components/NeuralUniverse';
 import FeaturedPosts from '../components/FeaturedPosts';
 import CarouselTop from '../components/CarouselTop';
+import { useDispatch, useSelector } from 'react-redux';
+import { use, useEffect } from 'react';
+import { fetchProducts } from '../store/actions/productActions';
 
 
 function HomePage() {
- 
-const productImages = [
-  '/HomePageImages/GraphicDesing1.jpg',
-  '/HomePageImages/GraphicDesing2.jpg',
-  '/HomePageImages/GraphicDesing3.jpg',
-  '/HomePageImages/GraphicDesing4.jpg',
-  '/HomePageImages/GraphicDesing5.jpg',
-  '/HomePageImages/GraphicDesing6.jpg',
-  '/HomePageImages/GraphicDesing7.jpg',
-  '/HomePageImages/GraphicDesing8.jpg',
-];
 
+  const dispatch = useDispatch();
+ 
+
+const { productList, fetchState } = useSelector((state) => state.product);
+
+useEffect(() => {if (fetchState === "NOT_FETCHED") {dispatch(fetchProducts());}}, [dispatch, fetchState]);
+
+const bestSellers = productList.slice(0, 8);
 
 
   return (
@@ -93,17 +93,20 @@ const productImages = [
           </p>
         </div>
 
-        {/* Responsive Grid Layout*/}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-16">
-          
-          {productImages.map((imagePath, index) => (
-            <ProductCard key={index} image={imagePath} />
-          ))}
-
+       {/* 4. Display Loading State or Grid */}
+          {fetchState === "FETCHING" ? (
+            <div className="flex justify-center py-10">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[#23A6F0]"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+              {bestSellers.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
-
-      </div>
-    </section>
+      </section>
 
     <ProductCarousel/>
     <NeuralUniverse/>
